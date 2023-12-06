@@ -1,0 +1,6 @@
+Implementați un ecosistem de agenți de tip chat agents. Agenții vor prezenta o interfață
+grafică care să permită selecția unui destinatar (acesta fiind identificat după
+adresă/nickname sau eventual după imagine), trimiterea către aceștia de mesaje și
+recepționarea/afișarea mesajelor. Va exista și un mecanism de salvare a istoricului
+comunicațiilor într-un fișier text extern. Agenții se vor identifica cu ajutorul agentului DF
+(înregistrarea de servicii). Implementare descentralizată (peer to peer).
