@@ -11,7 +11,7 @@ import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.ACLMessage;
 
-public class ChatAgent2 extends jade.core.Agent {
+public class ChatAgent3 extends jade.core.Agent {
 
 	private static final long serialVersionUID = 8392585388451169413L;
 	private List<String> recipients;
@@ -51,7 +51,7 @@ public class ChatAgent2 extends jade.core.Agent {
 				String content = msg.getContent();
 
 				((GUIAgent) myAgent).displayMessage("ChatAgent " + sender, content);
-				((ChatAgent2) myAgent).updateRecipientList();
+				((ChatAgent3) myAgent).updateRecipientList();
 
 				// Send the message to all other ChatAgents
 				for (String recipient : recipients) {
@@ -85,7 +85,7 @@ public class ChatAgent2 extends jade.core.Agent {
 			Object myAgent = null;
 			// Verifică dacă myAgent este null înainte de a apela metoda
 			if (myAgent != null) {
-				((ChatAgent2) myAgent).updateRecipientList();
+				((ChatAgent3) myAgent).updateRecipientList();
 			}
 
 		} catch (FIPAException fe) {
