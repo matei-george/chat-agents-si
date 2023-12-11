@@ -1,11 +1,16 @@
 package main;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import javax.swing.Box;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -32,6 +37,7 @@ public class GUIAgent extends jade.core.Agent {
 
 	private static final long serialVersionUID = 3007353778696543294L;
 	private JFrame frame;
+	private JTextArea chatTextArea;
 	private JComboBox<String> recipientComboBox;
 	private JTextArea messageTextArea;
 	private List<String> messageHistory;
@@ -52,8 +58,7 @@ public class GUIAgent extends jade.core.Agent {
 				AgentController agentController = container.createNewAgent("GUIAgent", "main.GUIAgent", new Object[0]);
 				agentController.start();
 				try {
-					AgentController chatAgent1 = container.createNewAgent("ChatAgent1", "main.ChatAgent",
-							new Object[0]);
+					AgentController chatAgent1 = container.createNewAgent("User_1", "main.ChatAgent", new Object[0]);
 					chatAgent1.start();
 				} catch (StaleProxyException e) {
 					e.printStackTrace();
@@ -61,13 +66,19 @@ public class GUIAgent extends jade.core.Agent {
 
 				// Crează și lansează al doilea agent de chat
 				try {
-					AgentController chatAgent2 = container.createNewAgent("ChatAgent2", "main.ChatAgent",
-							new Object[0]);
+					AgentController chatAgent2 = container.createNewAgent("User_2", "main.ChatAgent", new Object[0]);
 					chatAgent2.start();
 				} catch (StaleProxyException e) {
 					e.printStackTrace();
 				}
-				System.out.println("GUIAgent created and started successfully.");
+				// Crează și lansează al treilea agent de chat
+				try {
+					AgentController chatAgent3 = container.createNewAgent("User_3", "main.ChatAgent", new Object[0]);
+					chatAgent3.start();
+				} catch (StaleProxyException e) {
+					e.printStackTrace();
+				}
+				System.out.println("GUI Agent creat.");
 			} else {
 				System.err.println("Error: Container is null.");
 			}
@@ -87,29 +98,39 @@ public class GUIAgent extends jade.core.Agent {
 
 	private void initGUI() {
 		SwingUtilities.invokeLater(() -> {
-			frame = new JFrame("Chat Application");
+			frame = new JFrame("Proiect SI.");
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			frame.setSize(400, 300);
+			frame.setSize(600, 400);
 
-			JPanel panel = new JPanel(new BorderLayout());
+			JPanel mainPanel = new JPanel(new BorderLayout());
 
 			recipientComboBox = new JComboBox<>();
 			messageTextArea = new JTextArea();
-			JButton sendButton = new JButton("Send");
-			JButton saveHistoryButton = new JButton("Save History");
+			messageTextArea.setPreferredSize(new Dimension(325, 20));
+			JButton sendButton = new JButton("Trimite");
+			JButton saveHistoryButton = new JButton("Salveaza Istoric");
 
-			panel.add(recipientComboBox, BorderLayout.NORTH);
-			panel.add(new JScrollPane(messageTextArea), BorderLayout.CENTER);
-			panel.add(sendButton, BorderLayout.SOUTH);
+			chatTextArea = new JTextArea();
+			chatTextArea.setEditable(false);
 
-			JPanel buttonPanel = new JPanel();
+			// Adaugă combo box-ul în partea de sus și întinde-l pe orizontală
+			mainPanel.add(recipientComboBox, BorderLayout.NORTH);
+
+			// Adaugă caseta de text pentru chat în centru și întinde-o pe toată lățimea
+			mainPanel.add(new JScrollPane(chatTextArea), BorderLayout.CENTER);
+
+			// Adaugă butoanele de send și save history sub caseta de mesaje
+			JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+			buttonPanel.add(messageTextArea);
+			buttonPanel.add(Box.createRigidArea(new Dimension(20, 0)));
+			buttonPanel.add(sendButton);
 			buttonPanel.add(saveHistoryButton);
 
-			frame.getContentPane().add(panel, BorderLayout.CENTER);
-			frame.getContentPane().add(buttonPanel, BorderLayout.SOUTH);
+			mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+			frame.getContentPane().add(mainPanel);
 
 			sendButton.addActionListener(e -> sendMessage());
-
 			saveHistoryButton.addActionListener(e -> saveHistory());
 
 			frame.setVisible(true);
@@ -130,7 +151,7 @@ public class GUIAgent extends jade.core.Agent {
 
 			send(aclMessage);
 
-			displayMessage("Me", message);
+			displayMessage(recipient, message);
 
 			messageHistory.add("Me: " + message);
 			messageTextArea.setText("");
@@ -138,17 +159,17 @@ public class GUIAgent extends jade.core.Agent {
 	}
 
 	public void displayMessage(String sender, String message) {
-		String currentText = messageTextArea.getText();
-		messageTextArea.setText(currentText + "\n" + sender + ": " + message);
+		String timestamp = new SimpleDateFormat("HH:mm:ss").format(new Date()); // Obține timestamp-ul actual
+		messageTextArea.setText(sender + ": " + message + "\n");
+		chatTextArea.append("[ " + timestamp + " ] " + sender + ": " + message + "\n");
 	}
 
 	private void saveHistory() {
 		try (FileWriter writer = new FileWriter("message_history.txt")) {
-			for (String message : messageHistory) {
-				writer.write(message + "\n");
-			}
+			String messageContent = chatTextArea.getText();
+			writer.write(messageContent);
 			writer.flush();
-			JOptionPane.showMessageDialog(frame, "Message history saved successfully.");
+			JOptionPane.showMessageDialog(frame, "Istoric salvat cu succes.");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

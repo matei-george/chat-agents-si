@@ -50,8 +50,6 @@ public class ChatAgent extends jade.core.Agent {
 				String sender = msg.getSender().getLocalName();
 				String content = msg.getContent();
 
-				((ChatAgent) myAgent).updateRecipientList();
-
 				// Send the message to all other ChatAgents
 				for (String recipient : recipients) {
 					if (!recipient.equals(sender)) {
@@ -67,6 +65,7 @@ public class ChatAgent extends jade.core.Agent {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private void updateRecipientList() {
 		DFAgentDescription template = new DFAgentDescription();
 		ServiceDescription sd = new ServiceDescription();
@@ -80,10 +79,15 @@ public class ChatAgent extends jade.core.Agent {
 				currentRecipients[i] = result[i].getName().getLocalName();
 			}
 
-			myAgent.updateRecipientList(currentRecipients);
+			Object myAgent = null;
+			// Verifică dacă myAgent este null înainte de a apela metoda
+			if (myAgent != null) {
+				((ChatAgent) myAgent).updateRecipientList();
+			}
 
 		} catch (FIPAException fe) {
 			fe.printStackTrace();
 		}
 	}
+
 }
