@@ -1,6 +1,13 @@
 
 # chat-agents-si
+![Static Badge](https://img.shields.io/badge/authors-Mat(2.718)i-93c6d6)
+![GitHub License](https://img.shields.io/github/license/matei-george/chat-agents-si)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/matei-george/chat-agents-si/main)
+![Static Badge](https://img.shields.io/badge/language-Java-82aeb1)
+![Static Badge](https://img.shields.io/badge/built_with-Java_Swing-ffb997)
+![Static Badge](https://img.shields.io/badge/built_with-JADE-ffb997)
 
+----
 `Un ecosistem de tip Chat-Agents scris in Java SE 1.8 cu Swing si JADE.`
 
 ## Cuprins
