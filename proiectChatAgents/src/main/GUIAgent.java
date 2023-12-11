@@ -161,16 +161,15 @@ public class GUIAgent extends jade.core.Agent {
 	public void displayMessage(String sender, String message) {
 		String timestamp = new SimpleDateFormat("HH:mm:ss").format(new Date()); // Obține timestamp-ul actual
 		messageTextArea.setText(sender + ": " + message + "\n");
-		chatTextArea.append("[ " + timestamp + " ]   " + sender + ": " + message + "\n");
+		chatTextArea.append("[ " + timestamp + " ] " + sender + ": " + message + "\n");
 	}
 
 	private void saveHistory() {
 		try (FileWriter writer = new FileWriter("message_history.txt")) {
-			for (String message : messageHistory) {
-				writer.write(message + "\n");
-			}
+			String messageContent = chatTextArea.getText();
+			writer.write(messageContent);
 			writer.flush();
-			JOptionPane.showMessageDialog(frame, "Istoric salvat cu succes..");
+			JOptionPane.showMessageDialog(frame, "Istoric salvat cu succes.");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

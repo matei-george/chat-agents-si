@@ -50,9 +50,6 @@ public class ChatAgent3 extends jade.core.Agent {
 				String sender = msg.getSender().getLocalName();
 				String content = msg.getContent();
 
-				((GUIAgent) myAgent).displayMessage("ChatAgent " + sender, content);
-				((ChatAgent3) myAgent).updateRecipientList();
-
 				// Send the message to all other ChatAgents
 				for (String recipient : recipients) {
 					if (!recipient.equals(sender)) {
