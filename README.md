@@ -87,5 +87,5 @@ In concluzie, aplicatia respectiva isi indeplineste cu succes scopul, indeplinin
 - [Java JADE Docs](https://jade.tilab.com/documentation/tutorials-guides/)
 
 ## Note
-Copyright © 2023 [Mat(2.718)](https://github.com/matei-george)
+Copyright © 2023 [Mat(2.718)](https://github.com/matei-george) <br>
 Toate drepturile rezervate, sub licenta [MIT](https://mit-license.org/)
