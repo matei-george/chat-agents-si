@@ -1,5 +1,5 @@
-
 # chat-agents-si
+
 ![Static Badge](https://img.shields.io/badge/authors-Mat(2.718)i-93c6d6)
 ![GitHub License](https://img.shields.io/github/license/matei-george/chat-agents-si)
 ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/matei-george/chat-agents-si/main)
@@ -8,7 +8,9 @@
 ![Static Badge](https://img.shields.io/badge/built_with-JADE-ffb997)
 
 ----
-`Un ecosistem de tip Chat-Agents scris in Java SE 1.8 cu Swing si JADE.`
+<p align="center">
+Un ecosistem de tip Chat-Agents scris in Java SE 1.8 cu Swing si JADE.
+</p>
 
 ## Cuprins
 1. [Introducere](#introducere)
@@ -41,6 +43,7 @@ Conceputa, stilizata si scrisa cu :
 > Aplicatia este facuta sa ruleze in EclipseIDE cu Java SE 1.8. Aceasta are nevoie de un profil de configuratie pentru a nu avea probleme pe viitor. Asigurati-va ca profilul de configuratie este nou si luat de la 0, fara sa includa argumente in plus. 
 
 Pentru a crea o configuratie noua in eclipse, se executa urmatorii pasi:
+
  `Run > Run Configurations > Java Application (click dreapta) > New Configuration`
 
 In caseta noii configurari, introducem urmatoarele :
